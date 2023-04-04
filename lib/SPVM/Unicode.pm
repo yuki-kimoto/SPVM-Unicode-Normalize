@@ -58,27 +58,27 @@ If the $unicode_code_point is invalid Unicode code point, returns undef.
 
 =head2 utf8_to_utf16
 
-  static method utf8_to_utf16 : short[] ($utf8_string : string);
+  static method utf8_to_utf16 : short[] ($string : string);
 
-Converts the UTF-8 string $utf8_string to a UTF-16 string, and returns it.
+Converts the UTF-8 string $string to a UTF-16 string, and returns it.
 
 =head2 utf16_to_utf8
 
-  static method utf16_to_utf8 : string ($utf16_string : short[]);
+  static method utf16_to_utf8 : string ($string : short[]);
 
-Converts the UTF-16 string $utf16_string to a UTF-8 string, and returns it.
+Converts the UTF-16 string $string to a UTF-8 string, and returns it.
 
 =head2 utf32_to_utf16
 
-  static method utf32_to_utf16 : short[] ($utf32_string : int[]);
+  static method utf32_to_utf16 : short[] ($string : int[]);
 
-Converts the UTF-32 string $utf32_string to a UTF-16 string, and returns it.
+Converts the UTF-32 string $string to a UTF-16 string, and returns it.
 
 =head2 utf16_to_utf32
 
-  static method utf16_to_utf32 : int[] ($utf16_string : short[]);
+  static method utf16_to_utf32 : int[] ($string : short[]);
 
-Converts the UTF-16 string $utf16_string to a UTF-32 string, and returns it.
+Converts the UTF-16 string $string to a UTF-32 string, and returns it.
 
 =head1 Copyright & License
 
