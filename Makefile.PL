@@ -3,7 +3,20 @@ use ExtUtils::MakeMaker;
 use strict;
 use warnings;
 use Config;
-use SPVM::Builder::Util::API;
+use Getopt::Long 'GetOptions';
+
+GetOptions(
+  'meta' => \my $meta,
+  'no-build-spvm-modules' => \my $no_build_spvm_modules,
+);
+
+if ($meta) {
+  $no_build_spvm_modules = 1;
+}
+
+unless ($meta) {
+
+}
 
 WriteMakefile(
   NAME              => 'SPVM::Unicode',
@@ -35,8 +48,11 @@ sub MY::postamble {
 
   my $make_rule = '';
   
-  $make_rule .= SPVM::Builder::Util::API::create_make_rule_native('Unicode');
-  $make_rule .= SPVM::Builder::Util::API::create_make_rule_precompile('Unicode');
+  unless ($no_build_spvm_modules) {
+    require SPVM::Builder::Util::API;
+    $make_rule .= SPVM::Builder::Util::API::create_make_rule_native('Unicode');
+    $make_rule .= SPVM::Builder::Util::API::create_make_rule_precompile('Unicode');
+  }
   
   return $make_rule;
 }
