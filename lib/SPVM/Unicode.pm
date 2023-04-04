@@ -80,3 +80,9 @@ Convert a UTF-32 string to a UTF-16 string.
 
 Convert a UTF-16 string to UTF-32 string.
 
+=head1 Copyright & License
+
+Copyright (c) 2023 Yuki Kimoto
+
+MIT License
+
