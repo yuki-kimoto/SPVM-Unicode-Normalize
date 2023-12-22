@@ -11,7 +11,7 @@ class Encode : precompile {
     ERROR_INVALID_UTF8 = -2,
   }
   
-  static method is_unicode_scalar_value : int ($code_point: int) {
+  private static method is_unicode_scalar_value : int ($code_point: int) {
     my $is_unicode_scalar_value = 0;
     # The range of Unicde code points
     if ($code_point >= 0 && $code_point <= 0x10FFFF) {

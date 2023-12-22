@@ -28,12 +28,6 @@ The Encode class in L<SPVM> has methods to encode/docode strings.
 
 Returns -2.
 
-=head2 is_unicode_scalar_value
-
-  static method is_unicode_scalar_value : int ($code_point: int);
-
-If the code point $code_point is a Encode scalar value, returns 1. Otherwise returns 0.
-
 =head2 uchar_to_utf8
 
   static method uchar_to_utf8 : string ($unicode_code_point : int);
