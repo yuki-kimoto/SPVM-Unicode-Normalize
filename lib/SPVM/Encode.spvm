@@ -104,46 +104,46 @@ class Encode : precompile {
     return $utf8_string;
   }
   
-  private static method utf16_string_to_code_points : int[] ($string : short[]) {
+  private static method utf16_string_to_code_points : int[] ($utf16_string : short[]) {
     
     my $length = 0;
     
     # Culcurate length
-    for (my $i = 0; $i < @$string; $i++) {
-      if (&_is_utf16_high_surrogate($string->[$i] & 0xFFFF)) {
-        if ($i + 1 == @$string - 1) {
+    for (my $i = 0; $i < @$utf16_string; $i++) {
+      if (&_is_utf16_high_surrogate($utf16_string->[$i] & 0xFFFF)) {
+        if ($i + 1 == @$utf16_string - 1) {
           die "Invalid UTF-16 string";
         }
         else {
           $i++;
-          unless (&_is_utf16_low_surrogate($string->[$i] & 0xFFFF)) {
+          unless (&_is_utf16_low_surrogate($utf16_string->[$i] & 0xFFFF)) {
             die "Invalid UTF-16 string";
           }
         }
       }
-      elsif (&_is_utf16_low_surrogate($string->[$i] & 0xFFFF)) {
+      elsif (&_is_utf16_low_surrogate($utf16_string->[$i] & 0xFFFF)) {
         die "Invalid UTF-16 string";
       }
       $length++;
     }
     
-    # Convert UTF-16 to code point
-    my $string_ret = new int[$length];
+    # Convert UTF-16 string to code points
+    my $code_points = new int[$length];
     my $offset = 0;
-    for (my $i = 0; $i < @$string; $i++) {
-      if (&_is_utf16_high_surrogate($string->[$i] & 0xFFFF)) {
-        $string_ret->[$offset] = 0x10000 + (($string->[$i] & 0xFFFF) - 0xD800) * 0x400 + (($string->[$i + 1] & 0xFFFF) - 0xDC00);
+    for (my $i = 0; $i < @$utf16_string; $i++) {
+      if (&_is_utf16_high_surrogate($utf16_string->[$i] & 0xFFFF)) {
+        $code_points->[$offset] = 0x10000 + (($utf16_string->[$i] & 0xFFFF) - 0xD800) * 0x400 + (($utf16_string->[$i + 1] & 0xFFFF) - 0xDC00);
         $i++;
       }
       else {
-        $string_ret->[$offset] = $string->[$i] & 0xFFFF;
+        $code_points->[$offset] = $utf16_string->[$i] & 0xFFFF;
       }
       $offset++;
     }
     
-    return $string_ret;
+    return $code_points;
   }
- 
+  
   private static method _is_utf16_high_surrogate : int ($char : int) {
     if ($char >= 0xD800 && $char < 0xDC00) {
       return 1;
