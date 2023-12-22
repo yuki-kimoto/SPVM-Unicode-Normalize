@@ -12,17 +12,13 @@ SPVM::Encode - Encode Utilities.
 
 =head1 Description
 
-The Encode class of L<SPVM> has methods for Encode utilities.
+The Encode class in L<SPVM> has methods to encode/docode strings.
 
 =head1 Usage
 
   use Encode;
   
   my $string = "あいうえお";
-  my $pos = 0;
-  while ((my $uchar = Encode->uchar($string, \$pos)) >= 0);
-    # ...
-  }
 
 =head1 Class Methods
 
@@ -37,16 +33,6 @@ Returns -2.
   static method is_unicode_scalar_value : int ($code_point: int);
 
 If the code point $code_point is a Encode scalar value, returns 1. Otherwise returns 0.
-
-=head2 uchar
-
-  static method uchar : int ($string : string, $offset_ref : int*);
-
-Gets a Encode codepoint by parsing UTF-8 string $string with the offset $$offset_ref  and proceed the offset to the next parsing posision.
-
-If $$offset_ref is over the string length, returns -1.
-
-If an invalid UTF-8 character is found, returns the value of L</"ERROR_INVALID_UTF8">.
 
 =head2 uchar_to_utf8
 

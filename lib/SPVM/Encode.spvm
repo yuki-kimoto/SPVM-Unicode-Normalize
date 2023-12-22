@@ -3,8 +3,8 @@
 
 class Encode : precompile {
   use IntList;
+  use Fn;
   
-  native static method uchar : int ($string : string, $offset_ref : int*);
   native static method uchar_to_utf8 : string ($uchar : int);
   
   enum {
@@ -25,13 +25,22 @@ class Encode : precompile {
   }
  
   static method utf8_to_utf16 : short[] ($string : string) {
-    my $pos = 0;
+    my $offset = 0;
     my $uchars_list = IntList->new_len(0);
-    while ((my $uchar = &uchar($string, \$pos)) >= 0) {
+    
+    my $string_length = length $string;
+    
+    while (1) {
+      unless ($offset < $string_length) {
+        last;
+      }
+      
+      my $uchar = Fn->get_code_point($string, \$offset);
+      
       $uchars_list->push($uchar);
     }
     
-    unless ($pos >= length $string) {
+    unless ($offset >= length $string) {
       die "Can't convert part of string to utf16";
     }
     
@@ -79,19 +88,19 @@ class Encode : precompile {
     
     # Convert code point to UTF-16
     my $string_ret = new short[$length];
-    my $pos = 0;
+    my $offset = 0;
     
     for (my $i = 0; $i < @$string; $i++) {
       my $code_point = $string->[$i];
 
       if ($code_point < 0x10000) {
-        $string_ret->[$pos] = (short)$code_point;
-        $pos++;
+        $string_ret->[$offset] = (short)$code_point;
+        $offset++;
       }
       else {
-        $string_ret->[$pos] = (short)(($code_point - 0x10000) / 0x400 + 0xD800);
-        $string_ret->[$pos + 1] = (short)(($code_point - 0x10000) % 0x400 + 0xDC00);
-        $pos += 2;
+        $string_ret->[$offset] = (short)(($code_point - 0x10000) / 0x400 + 0xD800);
+        $string_ret->[$offset + 1] = (short)(($code_point - 0x10000) % 0x400 + 0xDC00);
+        $offset += 2;
       }
     }
     
@@ -123,16 +132,16 @@ class Encode : precompile {
     
     # Convert UTF-16 to code point
     my $string_ret = new int[$length];
-    my $pos = 0;
+    my $offset = 0;
     for (my $i = 0; $i < @$string; $i++) {
       if (&_is_utf16_high_surrogate($string->[$i] & 0xFFFF)) {
-        $string_ret->[$pos] = 0x10000 + (($string->[$i] & 0xFFFF) - 0xD800) * 0x400 + (($string->[$i + 1] & 0xFFFF) - 0xDC00);
+        $string_ret->[$offset] = 0x10000 + (($string->[$i] & 0xFFFF) - 0xD800) * 0x400 + (($string->[$i + 1] & 0xFFFF) - 0xDC00);
         $i++;
       }
       else {
-        $string_ret->[$pos] = $string->[$i] & 0xFFFF;
+        $string_ret->[$offset] = $string->[$i] & 0xFFFF;
       }
-      $pos++;
+      $offset++;
     }
     
     return $string_ret;

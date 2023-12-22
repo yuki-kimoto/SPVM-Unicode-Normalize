@@ -13,7 +13,6 @@ my $api = SPVM::api();
 my $start_memory_blocks_count = $api->get_memory_blocks_count();
 
 {
-  ok(SPVM::TestCase::Encode->uchar);
   ok(SPVM::TestCase::Encode->uchar_to_utf8);
   ok(SPVM::TestCase::Encode->utf32_to_utf16);
   ok(SPVM::TestCase::Encode->utf16_to_utf32);
