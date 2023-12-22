@@ -167,5 +167,6 @@ class Encode : precompile {
     
     return $is_unicode_scalar_value;
   }
- 
+  
+  native private static method NFC : string ($string : string);
 }

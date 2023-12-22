@@ -5,10 +5,9 @@
 
 #include "spvm_utf8proc.h"
 
-const char* MFILE = "SPVM/Encode.c";
+const char* FILE_NAME = "SPVM/Encode.c";
 
 int32_t SPVM__Encode__code_point(SPVM_ENV* env, SPVM_VALUE* stack) {
-  (void)env;
   
   void* obj_str = stack[0].oval;
   
@@ -24,7 +23,7 @@ int32_t SPVM__Encode__code_point(SPVM_ENV* env, SPVM_VALUE* stack) {
   
   spvm_utf8proc_int32_t dst;
   int32_t code_point_len = (int32_t)spvm_utf8proc_iterate((const spvm_utf8proc_uint8_t*)(str + *offset_ref), str_len, &dst);
-
+  
   int32_t code_point;
   if (code_point_len > 0) {
     code_point = dst;
@@ -43,26 +42,55 @@ int32_t SPVM__Encode__code_point(SPVM_ENV* env, SPVM_VALUE* stack) {
 }
 
 int32_t SPVM__Encode__code_point_to_utf8(SPVM_ENV* env, SPVM_VALUE* stack) {
-  (void)env;
   
   int32_t code_point = stack[0].ival;
   
-  char tmp_utf8_bytes[4];
-  int32_t utf8_len = (int32_t)spvm_utf8proc_encode_char((spvm_utf8proc_int32_t)code_point, (spvm_utf8proc_uint8_t*)tmp_utf8_bytes);
+  char tmp_utf8_char[4];
+  int32_t utf8_char_length = (int32_t)spvm_utf8proc_encode_char((spvm_utf8proc_int32_t)code_point, (spvm_utf8proc_uint8_t*)tmp_utf8_char);
   
-  if (utf8_len == 0) {
+  if (utf8_char_length == 0) {
     stack[0].oval = NULL;
     return 0;
   }
   
-  void* obj_utf8_bytes = env->new_byte_array(env, stack, utf8_len);
+  void* obj_utf8_char = env->new_string(env, stack, NULL, utf8_char_length);
   
-  int8_t* utf8_bytes = env->get_elems_byte(env, stack, obj_utf8_bytes);
-  memcpy((char*)utf8_bytes, tmp_utf8_bytes, utf8_len);
+  char* utf8_char = (char*)env->get_chars(env, stack, obj_utf8_char);
+  memcpy((char*)utf8_char, tmp_utf8_char, utf8_char_length);
   
-  void* utf8_string = env->new_string(env, stack, (char*)utf8_bytes, utf8_len);
+  stack[0].oval = obj_utf8_char;
   
-  stack[0].oval = utf8_string;
+  return 0;
+}
+
+int32_t SPVM__Encode__NFC(SPVM_ENV* env, SPVM_VALUE* stack) {
+  
+  void* obj_string = stack[0].oval;
+  
+  if (!obj_string) {
+    return env->die(env, stack, "$string must be defined.", __func__, FILE_NAME, __LINE__);
+  }
+  
+  const char* string = env->get_chars(env, stack, obj_string);
+  
+  spvm_utf8proc_uint8_t *string_nfc_tmp;
+  
+  int32_t string_nfc_length = spvm_utf8proc_map(string, 0, &string_nfc_tmp, SPVM_UTF8PROC_NULLTERM | SPVM_UTF8PROC_STABLE |
+    SPVM_UTF8PROC_DECOMPOSE);
+  
+  if (string_nfc_length < 0) {
+    return env->die(env, stack, "spvm_utf8proc_map failed.", __func__, FILE_NAME, __LINE__);
+  }
+  
+  void* obj_string_nfc = env->new_string(env, stack, NULL, string_nfc_length);
+  
+  char* string_nfc = (char*)env->get_chars(env, stack, obj_string_nfc);
+  
+  memcpy(string_nfc, string_nfc_tmp, string_nfc_length);
+  
+  free(string_nfc_tmp);
+  
+  stack[0].oval = obj_string_nfc;
   
   return 0;
 }
