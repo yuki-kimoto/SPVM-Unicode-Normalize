@@ -66,4 +66,17 @@ class TestCase::Encode {
     return 1;
   }
   
+  static method decode_utf32 : int () {
+    
+    my $utf32_string = [0x3042, 0x3044, 0x3046];
+    
+    my $string = Encode->decode_utf32($utf32_string);
+    
+    unless ($string eq "あいう") {
+      return 0;
+    }
+    
+    return 1;
+  }
+  
 }

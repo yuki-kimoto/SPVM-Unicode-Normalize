@@ -62,7 +62,22 @@ class Encode : precompile {
     return $utf16_string;
   }
   
-  native private static method code_point_to_utf8_char : string ($code_point : int);
+  static method decode_utf32 : string ($utf32_string : int[]) {
+    
+    my $code_points = $utf32_string;
+    
+    my $buffer = StringBuffer->new;
+    
+    for (my $i = 0; $i < @$code_points; $i++) {
+      my $code_point = $code_points->[$i];
+      my $utf8_char = &code_point_to_utf8_char($code_point);
+      $buffer->push($utf8_char);
+    }
+    
+    my $string = $buffer->to_string;
+    
+    return $string;
+  }
   
   private static method code_ponts_to_utf16_string : short[] ($code_points : int[]) {
     my $length = 0;
@@ -176,4 +191,7 @@ class Encode : precompile {
   }
   
   native private static method NFC : string ($string : string);
+  
+  native private static method code_point_to_utf8_char : string ($code_point : int);
+  
 }

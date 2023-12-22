@@ -17,9 +17,12 @@ my $start_memory_blocks_count = $api->get_memory_blocks_count();
   
   ok(SPVM::TestCase::Encode->encode_utf8);
   
+  ok(SPVM::TestCase::Encode->decode_utf16);
+  
   ok(SPVM::TestCase::Encode->encode_utf16);
   
-  ok(SPVM::TestCase::Encode->decode_utf16);
+  ok(SPVM::TestCase::Encode->decode_utf32);
+  
 }
 
 # All object is freed
