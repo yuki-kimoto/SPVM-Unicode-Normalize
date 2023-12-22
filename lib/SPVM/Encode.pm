@@ -30,9 +30,9 @@ Converts the Encode codepoint $unicode_code_point to a UTF-8 character.
 
 If the $unicode_code_point is invalid Encode code point, returns undef.
 
-=head2 utf8_to_utf16
+=head2 encode_utf16
 
-  static method utf8_to_utf16 : short[] ($string : string);
+  static method encode_utf16 : short[] ($string : string);
 
 Converts the UTF-8 string $string to a UTF-16 string, and returns it.
 

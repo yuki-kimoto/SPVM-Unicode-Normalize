@@ -20,7 +20,7 @@ class Encode : precompile {
     return $is_unicode_scalar_value;
   }
  
-  static method utf8_to_utf16 : short[] ($string : string) {
+  static method encode_utf16 : short[] ($string : string) {
     my $offset = 0;
     my $uchars_list = IntList->new_len(0);
     

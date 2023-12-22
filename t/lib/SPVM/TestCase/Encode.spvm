@@ -48,11 +48,11 @@ class TestCase::Encode {
     return 1;
   }
 
-  static method utf8_to_utf16 : int () {
+  static method encode_utf16 : int () {
     # サロゲートペア含む
     my $str = "あ𠮷a";
     
-    my $u16chars = Encode->utf8_to_utf16($str);
+    my $u16chars = Encode->encode_utf16($str);
     
     unless (@$u16chars == 4) {
       return 0;
