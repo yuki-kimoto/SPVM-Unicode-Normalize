@@ -1,6 +1,6 @@
 package SPVM::Encode;
 
-our $VERSION = '0.05';
+our $VERSION = '0.001';
 
 1;
 
@@ -8,7 +8,7 @@ our $VERSION = '0.05';
 
 =head1 Name
 
-SPVM::Encode - Encode Utilities.
+SPVM::Encode - Encode/Decode Strings
 
 =head1 Description
 
@@ -19,16 +19,30 @@ The Encode class in L<SPVM> has methods to encode/docode strings.
   use Encode;
   
   my $string = "あいうえお";
+  
+  my $utf16_string = Encode->encode_utf16($string);
+  
+  my $string_again = Encode->decode_utf16($utf16_string);
 
 =head1 Class Methods
 
-=head2 code_point_to_utf8
+=head2 decode_utf8
 
-  static method code_point_to_utf8 : string ($unicode_code_point : int);
+  static method decode_utf8 : string ($utf8_string : short[]);
 
-Converts the Encode codepoint $unicode_code_point to a UTF-8 character.
+Normalizes the UTF-8 string $utf8_string to NFC, and returns it.
 
-If the $unicode_code_point is invalid Encode code point, returns undef.
+=head2 encode_utf8
+
+  static method encode_utf8 : short[] ($string : string);
+
+Copies the UTF-8 string $string and returns it.
+
+=head2 decode_utf16
+
+  static method decode_utf16 : string ($utf16_string : short[]);
+
+Converts the UTF-16 string $utf16_string to a UTF-8 string, and returns it.
 
 =head2 encode_utf16
 
@@ -36,23 +50,17 @@ If the $unicode_code_point is invalid Encode code point, returns undef.
 
 Converts the UTF-8 string $string to a UTF-16 string, and returns it.
 
-=head2 decode_utf16
+=head2 decode_utf32
 
-  static method decode_utf16 : string ($string : short[]);
+  static method decode_utf32 : string ($utf32_string : int[]);
 
-Converts the UTF-16 string $string to a UTF-8 string, and returns it.
+Converts the UTF-32 string(Unicode code points) $utf32_string to a UTF-8 string, and returns it.
 
-=head2 utf32_to_utf16
+=head2 encode_utf32
 
-  static method utf32_to_utf16 : short[] ($string : int[]);
+  static method encode_utf32 : int[] ($string : string);
 
-Converts the UTF-32 string $string to a UTF-16 string, and returns it.
-
-=head2 utf16_to_utf32
-
-  static method utf16_to_utf32 : int[] ($string : short[]);
-
-Converts the UTF-16 string $string to a UTF-32 string, and returns it.
+Converts the UTF-8 string $string to a UTF-32 string(Unicode code points), and returns it.
 
 =head1 Copyright & License
 

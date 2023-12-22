@@ -2,6 +2,8 @@
 # MIT License
 
 class Encode : precompile {
+  version "0.001";
+  
   use IntList;
   use Fn;
   
@@ -30,9 +32,9 @@ class Encode : precompile {
       $buffer->push($utf8_char);
     }
     
-    my $string_ret = $buffer->to_string;
+    my $string = $buffer->to_string;
     
-    return $string_ret;
+    return $string;
   }
   
   static method encode_utf16 : short[] ($string : string) {
