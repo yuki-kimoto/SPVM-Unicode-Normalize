@@ -7,10 +7,6 @@ class Encode : precompile {
   
   native static method uchar_to_utf8 : string ($uchar : int);
   
-  enum {
-    ERROR_INVALID_UTF8 = -2,
-  }
-  
   private static method is_unicode_scalar_value : int ($code_point: int) {
     my $is_unicode_scalar_value = 0;
     # The range of Unicde code points

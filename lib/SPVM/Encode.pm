@@ -22,12 +22,6 @@ The Encode class in L<SPVM> has methods to encode/docode strings.
 
 =head1 Class Methods
 
-=head2 ERROR_INVALID_UTF8
-
-  static method INVALID_UTF8 : int ();
-
-Returns -2.
-
 =head2 uchar_to_utf8
 
   static method uchar_to_utf8 : string ($unicode_code_point : int);

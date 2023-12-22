@@ -1,15 +1,6 @@
 class TestCase::Encode {
   use Encode;
 
-  static method ERROR_INVALID_UTF8 : int () {
-    
-    unless (Encode->ERROR_INVALID_UTF8 == -2) {
-      return 0;
-    }
-    
-    return 1;
-  }
-
   static method uchar_to_utf8 : int () {
     
     {
