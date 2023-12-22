@@ -221,6 +221,4 @@ class Encode : precompile {
   
   native private static method NFC : string ($string : string);
   
-  native private static method code_point_to_utf8_char : string ($code_point : int);
-  
 }

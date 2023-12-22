@@ -7,28 +7,6 @@
 
 const char* FILE_NAME = "SPVM/Encode.c";
 
-int32_t SPVM__Encode__code_point_to_utf8_char(SPVM_ENV* env, SPVM_VALUE* stack) {
-  
-  int32_t code_point = stack[0].ival;
-  
-  char tmp_utf8_char[4];
-  int32_t utf8_char_length = (int32_t)spvm_utf8proc_encode_char((spvm_utf8proc_int32_t)code_point, (spvm_utf8proc_uint8_t*)tmp_utf8_char);
-  
-  if (utf8_char_length == 0) {
-    stack[0].oval = NULL;
-    return 0;
-  }
-  
-  void* obj_utf8_char = env->new_string(env, stack, NULL, utf8_char_length);
-  
-  char* utf8_char = (char*)env->get_chars(env, stack, obj_utf8_char);
-  memcpy((char*)utf8_char, tmp_utf8_char, utf8_char_length);
-  
-  stack[0].oval = obj_utf8_char;
-  
-  return 0;
-}
-
 int32_t SPVM__Encode__NFC(SPVM_ENV* env, SPVM_VALUE* stack) {
   
   void* obj_string = stack[0].oval;
