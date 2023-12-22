@@ -7,19 +7,6 @@ class Encode : precompile {
   
   native static method uchar_to_utf8 : string ($uchar : int);
   
-  private static method is_unicode_scalar_value : int ($code_point: int) {
-    my $is_unicode_scalar_value = 0;
-    # The range of Unicde code points
-    if ($code_point >= 0 && $code_point <= 0x10FFFF) {
-      # Not surrogate code points
-      unless ($code_point >= 0xD800 && $code_point <= 0xDFFF) {
-        $is_unicode_scalar_value = 1;
-      }
-    }
-    
-    return $is_unicode_scalar_value;
-  }
- 
   static method encode_utf16 : short[] ($string : string) {
     my $offset = 0;
     my $uchars_list = IntList->new_len(0);
@@ -160,4 +147,18 @@ class Encode : precompile {
       return 0;
     }
   }
+  
+  private static method is_unicode_scalar_value : int ($code_point: int) {
+    my $is_unicode_scalar_value = 0;
+    # The range of Unicde code points
+    if ($code_point >= 0 && $code_point <= 0x10FFFF) {
+      # Not surrogate code points
+      unless ($code_point >= 0xD800 && $code_point <= 0xDFFF) {
+        $is_unicode_scalar_value = 1;
+      }
+    }
+    
+    return $is_unicode_scalar_value;
+  }
+ 
 }
