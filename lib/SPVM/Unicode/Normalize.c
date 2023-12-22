@@ -5,9 +5,9 @@
 
 #include "spvm_utf8proc.h"
 
-const char* FILE_NAME = "SPVM/Encode.c";
+const char* FILE_NAME = "SPVM/Unicode/Normalize.c";
 
-int32_t SPVM__Encode__NFC(SPVM_ENV* env, SPVM_VALUE* stack) {
+int32_t SPVM__Unicode__Normalize__NFC(SPVM_ENV* env, SPVM_VALUE* stack) {
   
   void* obj_string = stack[0].oval;
   

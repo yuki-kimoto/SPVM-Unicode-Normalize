@@ -22,12 +22,12 @@ my %configure_and_runtime_requires = (
   'SPVM' => '0.989063',
 );
 WriteMakefile(
-  NAME              => 'SPVM::Encode',
-  VERSION_FROM      => 'lib/SPVM/Encode.pm',
+  NAME              => 'SPVM::Unicode::Normalize',
+  VERSION_FROM      => 'lib/SPVM/Unicode/Normalize.pm',
   PREREQ_PM         => {}, # e.g., Module::Name => 1.1
   LICENSE           => 'mit',
   ($] >= 5.005 ?     ## Add these new keywords supported since 5.005
-    (ABSTRACT_FROM  => 'lib/SPVM/Encode.pm',
+    (ABSTRACT_FROM  => 'lib/SPVM/Unicode/Normalize.pm',
      AUTHOR         => 'Yuki Kimoto<kimoto.yuki@gmail.com>') : ()),
   test => {TESTS => 't/*.t'},
   clean => {FILES => ['.spvm_build', 't/.spvm_build']},
@@ -36,8 +36,8 @@ WriteMakefile(
     resources => {
       repository => {
         type => 'git',
-        url  => 'https://github.com/yuki-kimoto/SPVM-Encode.git',
-        web  => 'https://github.com/yuki-kimoto/SPVM-Encode',
+        url  => 'https://github.com/yuki-kimoto/SPVM-Unicode-Normalize.git',
+        web  => 'https://github.com/yuki-kimoto/SPVM-Unicode-Normalize',
       },
     },
   },
@@ -57,8 +57,8 @@ sub MY::postamble {
   
   unless ($no_build_spvm_modules) {
     require SPVM::Builder::Util::API;
-    $make_rule .= SPVM::Builder::Util::API::create_make_rule_native('Encode');
-    $make_rule .= SPVM::Builder::Util::API::create_make_rule_precompile('Encode');
+    $make_rule .= SPVM::Builder::Util::API::create_make_rule_native('Unicode::Normalize');
+    $make_rule .= SPVM::Builder::Util::API::create_make_rule_precompile('Unicode::Normalize');
   }
   
   return $make_rule;

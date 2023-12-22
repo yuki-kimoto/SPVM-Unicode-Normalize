@@ -1,4 +1,4 @@
-package SPVM::Encode;
+package SPVM::Unicode::Normalize;
 
 our $VERSION = '0.001';
 
@@ -8,21 +8,21 @@ our $VERSION = '0.001';
 
 =head1 Name
 
-SPVM::Encode - Encode/Decode Strings
+SPVM::Unicode::Normalize - Unicode::Normalize/Decode Strings
 
 =head1 Description
 
-The Encode class in L<SPVM> has methods to encode/docode strings.
+The Unicode::Normalize class in L<SPVM> has methods to encode/docode strings.
 
 =head1 Usage
 
-  use Encode;
+  use Unicode::Normalize;
   
   my $string = "あいうえお";
   
-  my $utf16_string = Encode->encode_utf16($string);
+  my $utf16_string = Unicode::Normalize->encode_utf16($string);
   
-  my $string_again = Encode->decode_utf16($utf16_string);
+  my $string_again = Unicode::Normalize->decode_utf16($utf16_string);
 
 =head1 Class Methods
 

@@ -1,3 +1,3 @@
-# SPVM::Encode
+# SPVM::Unicode::Normalize
 
-<a href="https://metacpan.org/pod/SPVM::Encode">SPVM::Encode</a>
+<a href="https://metacpan.org/pod/SPVM::Unicode::Normalize">SPVM::Unicode::Normalize</a>

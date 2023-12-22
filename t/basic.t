@@ -5,7 +5,7 @@ use warnings;
 use FindBin;
 use lib "$FindBin::Bin/lib";
 
-use SPVM 'TestCase::Encode';
+use SPVM 'TestCase::Unicode::Normalize';
 
 my $api = SPVM::api();
 
@@ -13,17 +13,17 @@ my $api = SPVM::api();
 my $start_memory_blocks_count = $api->get_memory_blocks_count();
 
 {
-  ok(SPVM::TestCase::Encode->decode_utf8);
+  ok(SPVM::TestCase::Unicode::Normalize->decode_utf8);
   
-  ok(SPVM::TestCase::Encode->encode_utf8);
+  ok(SPVM::TestCase::Unicode::Normalize->encode_utf8);
   
-  ok(SPVM::TestCase::Encode->decode_utf16);
+  ok(SPVM::TestCase::Unicode::Normalize->decode_utf16);
   
-  ok(SPVM::TestCase::Encode->encode_utf16);
+  ok(SPVM::TestCase::Unicode::Normalize->encode_utf16);
   
-  ok(SPVM::TestCase::Encode->decode_utf32);
+  ok(SPVM::TestCase::Unicode::Normalize->decode_utf32);
   
-  ok(SPVM::TestCase::Encode->encode_utf32);
+  ok(SPVM::TestCase::Unicode::Normalize->encode_utf32);
   
 }
 
