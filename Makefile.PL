@@ -18,6 +18,9 @@ unless ($meta) {
 
 }
 
+my %configure_and_runtime_requires = (
+  'SPVM' => '0.989063',
+);
 WriteMakefile(
   NAME              => 'SPVM::Encode',
   VERSION_FROM      => 'lib/SPVM/Encode.pm',
@@ -38,10 +41,14 @@ WriteMakefile(
       },
     },
   },
-  # SPVM::Builder::Util::API is needed for Makefile.PL
   CONFIGURE_REQUIRES => {
-    'SPVM'              => '0.989063',
+    %configure_and_runtime_requires,
   },
+  PREREQ_PM         => {
+    %configure_and_runtime_requires,
+  },
+  TEST_REQUIRES => {
+  }
 );
 
 sub MY::postamble {
