@@ -79,6 +79,33 @@ class Encode : precompile {
     return $string;
   }
   
+  static method encode_utf32 : int[] ($string : string) {
+    my $offset = 0;
+    my $code_points_list = IntList->new_len(0);
+    
+    my $string_length = length $string;
+    
+    while (1) {
+      unless ($offset < $string_length) {
+        last;
+      }
+      
+      my $code_point = Fn->get_code_point($string, \$offset);
+      
+      $code_points_list->push($code_point);
+    }
+    
+    unless ($offset >= length $string) {
+      die "Can't convert part of string to utf16";
+    }
+    
+    my $code_points = $code_points_list->to_array;
+    
+    my $utf32_string = $code_points;
+    
+    return $utf32_string;
+  }
+  
   private static method code_ponts_to_utf16_string : short[] ($code_points : int[]) {
     my $length = 0;
     
