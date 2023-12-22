@@ -3,9 +3,9 @@ class TestCase::Encode {
 
   static method decode_utf8 : int () {
     # サロゲートペア含む
-    my $utf8_bytes = "あいう";
+    my $utf8_string = "あいう";
     
-    my $string = Encode->decode_utf8($utf8_bytes);
+    my $string = Encode->decode_utf8($utf8_string);
     
     unless ($string eq "あいう") {
       return 0;

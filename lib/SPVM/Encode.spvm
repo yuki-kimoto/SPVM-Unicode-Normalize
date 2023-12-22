@@ -5,22 +5,22 @@ class Encode : precompile {
   use IntList;
   use Fn;
   
-  static method decode_utf8 : string ($utf8_bytes : string) {
+  static method decode_utf8 : string ($utf8_string : string) {
     
-    my $string = &NFC($utf8_bytes);
+    my $string = &NFC($utf8_string);
     
     return $string;
   }
   
   static method encode_utf8 : string ($string : string) {
     
-    my $utf8_bytes = copy $string;
+    my $utf8_string = copy $string;
     
-    return $utf8_bytes;
+    return $utf8_string;
   }
   
-  static method decode_utf16 : string ($string : short[]) {
-    my $code_points = &utf16_to_utf32($string);
+  static method decode_utf16 : string ($utf16_string : short[]) {
+    my $code_points = &utf16_to_utf32($utf16_string);
     
     my $buffer = StringBuffer->new;
     
@@ -57,19 +57,19 @@ class Encode : precompile {
     
     my $code_points = $code_points_list->to_array;
     
-    my $string_ret = &utf32_to_utf16($code_points);
+    my $utf16_string = &code_ponts_to_utf16_string($code_points);
     
-    return $string_ret;
+    return $utf16_string;
   }
   
   native private static method code_point_to_utf8 : string ($code_point : int);
   
-  private static method utf32_to_utf16 : short[] ($string : int[]) {
+  private static method code_ponts_to_utf16_string : short[] ($code_points : int[]) {
     my $length = 0;
     
     # Culcurate length
-    for (my $i = 0; $i < @$string; $i++) {
-      my $code_point = $string->[$i];
+    for (my $i = 0; $i < @$code_points; $i++) {
+      my $code_point = $code_points->[$i];
       
       if ($code_point < 0 || $code_point > 0x10FFFF) {
         die "Invalid code point in code point string";
@@ -84,24 +84,24 @@ class Encode : precompile {
     }
     
     # Convert code point to UTF-16
-    my $string_ret = new short[$length];
+    my $utf8_string = new short[$length];
     my $offset = 0;
     
-    for (my $i = 0; $i < @$string; $i++) {
-      my $code_point = $string->[$i];
+    for (my $i = 0; $i < @$code_points; $i++) {
+      my $code_point = $code_points->[$i];
       
       if ($code_point < 0x10000) {
-        $string_ret->[$offset] = (short)$code_point;
+        $utf8_string->[$offset] = (short)$code_point;
         $offset++;
       }
       else {
-        $string_ret->[$offset] = (short)(($code_point - 0x10000) / 0x400 + 0xD800);
-        $string_ret->[$offset + 1] = (short)(($code_point - 0x10000) % 0x400 + 0xDC00);
+        $utf8_string->[$offset] = (short)(($code_point - 0x10000) / 0x400 + 0xD800);
+        $utf8_string->[$offset + 1] = (short)(($code_point - 0x10000) % 0x400 + 0xDC00);
         $offset += 2;
       }
     }
     
-    return $string_ret;
+    return $utf8_string;
   }
   
   private static method utf16_to_utf32 : int[] ($string : short[]) {
