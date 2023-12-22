@@ -1,4 +1,3 @@
-# SPVM::Unicode
+# SPVM::Encode
 
-SPVM::Unicode is a SPVM module.
-
+<a href="https://metacpan.org/pod/SPVM::Encode">SPVM::Encode</a>
