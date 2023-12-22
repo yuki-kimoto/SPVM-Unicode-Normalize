@@ -7,40 +7,6 @@
 
 const char* FILE_NAME = "SPVM/Encode.c";
 
-int32_t SPVM__Encode__code_point(SPVM_ENV* env, SPVM_VALUE* stack) {
-  
-  void* obj_str = stack[0].oval;
-  
-  const char* str = env->get_chars(env, stack, obj_str);
-  int32_t str_len = env->length(env, stack, obj_str);
-  
-  int32_t* offset_ref = stack[1].iref;
-  
-  if (*offset_ref < 0 || *offset_ref > str_len - 1) {
-    stack[0].ival = -1;
-    return 0;
-  }
-  
-  spvm_utf8proc_int32_t dst;
-  int32_t code_point_len = (int32_t)spvm_utf8proc_iterate((const spvm_utf8proc_uint8_t*)(str + *offset_ref), str_len, &dst);
-  
-  int32_t code_point;
-  if (code_point_len > 0) {
-    code_point = dst;
-    *offset_ref += code_point_len;
-  }
-  else if (code_point_len == 0) {
-    code_point = -1;
-  }
-  else if (code_point_len == SPVM_UTF8PROC_ERROR_INVALIDUTF8) {
-    code_point = -2;
-  }
-  
-  stack[0].ival = code_point;
-  
-  return 0;
-}
-
 int32_t SPVM__Encode__code_point_to_utf8(SPVM_ENV* env, SPVM_VALUE* stack) {
   
   int32_t code_point = stack[0].ival;
