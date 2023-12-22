@@ -48,9 +48,9 @@ If the $unicode_code_point is invalid Encode code point, returns undef.
 
 Converts the UTF-8 string $string to a UTF-16 string, and returns it.
 
-=head2 utf16_to_utf8
+=head2 decode_utf16
 
-  static method utf16_to_utf8 : string ($string : short[]);
+  static method decode_utf16 : string ($string : short[]);
 
 Converts the UTF-16 string $string to a UTF-8 string, and returns it.
 

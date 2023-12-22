@@ -51,7 +51,7 @@ class Encode : precompile {
     return $string_ret;
   }
   
-  static method utf16_to_utf8 : string ($string : short[]) {
+  static method decode_utf16 : string ($string : short[]) {
     my $uchars = &utf16_to_utf32($string);
     
     my $buffer = StringBuffer->new;
