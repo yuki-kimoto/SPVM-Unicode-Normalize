@@ -19,6 +19,22 @@ class Encode : precompile {
     return $utf8_bytes;
   }
   
+  static method decode_utf16 : string ($string : short[]) {
+    my $code_points = &utf16_to_utf32($string);
+    
+    my $buffer = StringBuffer->new;
+    
+    for (my $i = 0; $i < @$code_points; $i++) {
+      my $code_point = $code_points->[$i];
+      my $utf8_str = &code_point_to_utf8($code_point);
+      $buffer->push($utf8_str);
+    }
+    
+    my $string_ret = $buffer->to_string;
+    
+    return $string_ret;
+  }
+  
   static method encode_utf16 : short[] ($string : string) {
     my $offset = 0;
     my $code_points_list = IntList->new_len(0);
@@ -42,22 +58,6 @@ class Encode : precompile {
     my $code_points = $code_points_list->to_array;
     
     my $string_ret = &utf32_to_utf16($code_points);
-    
-    return $string_ret;
-  }
-  
-  static method decode_utf16 : string ($string : short[]) {
-    my $code_points = &utf16_to_utf32($string);
-    
-    my $buffer = StringBuffer->new;
-    
-    for (my $i = 0; $i < @$code_points; $i++) {
-      my $code_point = $code_points->[$i];
-      my $utf8_str = &code_point_to_utf8($code_point);
-      $buffer->push($utf8_str);
-    }
-    
-    my $string_ret = $buffer->to_string;
     
     return $string_ret;
   }
