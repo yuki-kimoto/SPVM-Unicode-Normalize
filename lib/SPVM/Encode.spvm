@@ -28,7 +28,7 @@ class Encode : precompile {
     
     for (my $i = 0; $i < @$code_points; $i++) {
       my $code_point = $code_points->[$i];
-      my $utf8_char = &code_point_to_utf8_char($code_point);
+      my $utf8_char = Fn->chr($code_point);
       $buffer->push($utf8_char);
     }
     
@@ -72,7 +72,7 @@ class Encode : precompile {
     
     for (my $i = 0; $i < @$code_points; $i++) {
       my $code_point = $code_points->[$i];
-      my $utf8_char = &code_point_to_utf8_char($code_point);
+      my $utf8_char = Fn->chr($code_point);
       $buffer->push($utf8_char);
     }
     
