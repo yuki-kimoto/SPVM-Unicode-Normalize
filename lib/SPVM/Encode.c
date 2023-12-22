@@ -7,7 +7,7 @@
 
 const char* FILE_NAME = "SPVM/Encode.c";
 
-int32_t SPVM__Encode__code_point_to_utf8(SPVM_ENV* env, SPVM_VALUE* stack) {
+int32_t SPVM__Encode__code_point_to_utf8_char(SPVM_ENV* env, SPVM_VALUE* stack) {
   
   int32_t code_point = stack[0].ival;
   

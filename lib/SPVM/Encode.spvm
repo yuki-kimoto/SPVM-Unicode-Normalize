@@ -26,8 +26,8 @@ class Encode : precompile {
     
     for (my $i = 0; $i < @$code_points; $i++) {
       my $code_point = $code_points->[$i];
-      my $utf8_str = &code_point_to_utf8($code_point);
-      $buffer->push($utf8_str);
+      my $utf8_char = &code_point_to_utf8_char($code_point);
+      $buffer->push($utf8_char);
     }
     
     my $string_ret = $buffer->to_string;
@@ -62,7 +62,7 @@ class Encode : precompile {
     return $utf16_string;
   }
   
-  native private static method code_point_to_utf8 : string ($code_point : int);
+  native private static method code_point_to_utf8_char : string ($code_point : int);
   
   private static method code_ponts_to_utf16_string : short[] ($code_points : int[]) {
     my $length = 0;
