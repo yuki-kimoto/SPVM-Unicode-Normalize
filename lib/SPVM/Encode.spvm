@@ -20,7 +20,7 @@ class Encode : precompile {
   }
   
   static method decode_utf16 : string ($utf16_string : short[]) {
-    my $code_points = &utf16_to_utf32($utf16_string);
+    my $code_points = &utf16_string_to_code_points($utf16_string);
     
     my $buffer = StringBuffer->new;
     
@@ -104,7 +104,7 @@ class Encode : precompile {
     return $utf8_string;
   }
   
-  private static method utf16_to_utf32 : int[] ($string : short[]) {
+  private static method utf16_string_to_code_points : int[] ($string : short[]) {
     
     my $length = 0;
     
