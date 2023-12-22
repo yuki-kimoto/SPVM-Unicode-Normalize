@@ -19,12 +19,12 @@ unless ($meta) {
 }
 
 WriteMakefile(
-  NAME              => 'SPVM::Unicode',
-  VERSION_FROM      => 'lib/SPVM/Unicode.pm',
+  NAME              => 'SPVM::Encode',
+  VERSION_FROM      => 'lib/SPVM/Encode.pm',
   PREREQ_PM         => {}, # e.g., Module::Name => 1.1
   LICENSE           => 'mit',
   ($] >= 5.005 ?     ## Add these new keywords supported since 5.005
-    (ABSTRACT_FROM  => 'lib/SPVM/Unicode.pm',
+    (ABSTRACT_FROM  => 'lib/SPVM/Encode.pm',
      AUTHOR         => 'Yuki Kimoto<kimoto.yuki@gmail.com>') : ()),
   test => {TESTS => 't/*.t'},
   clean => {FILES => ['.spvm_build', 't/.spvm_build']},
@@ -50,8 +50,8 @@ sub MY::postamble {
   
   unless ($no_build_spvm_modules) {
     require SPVM::Builder::Util::API;
-    $make_rule .= SPVM::Builder::Util::API::create_make_rule_native('Unicode');
-    $make_rule .= SPVM::Builder::Util::API::create_make_rule_precompile('Unicode');
+    $make_rule .= SPVM::Builder::Util::API::create_make_rule_native('Encode');
+    $make_rule .= SPVM::Builder::Util::API::create_make_rule_precompile('Encode');
   }
   
   return $make_rule;

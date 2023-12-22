@@ -30,8 +30,8 @@
  * @mainpage
  *
  * spvm_utf8proc is a free/open-source (MIT/expat licensed) C library
- * providing Unicode normalization, case-folding, and other operations
- * for strings in the UTF-8 encoding, supporting Unicode version
+ * providing Encode normalization, case-folding, and other operations
+ * for strings in the UTF-8 encoding, supporting Encode version
  * 9.0.0.  See the spvm_utf8proc home page (http://julialang.org/spvm_utf8proc/)
  * for downloads and other information, or the source code on github
  * (https://github.com/JuliaLang/spvm_utf8proc).
@@ -41,15 +41,15 @@
  * The features of spvm_utf8proc include:
  *
  * - Transformation of strings (@ref spvm_utf8proc_map) to:
- *    - decompose (@ref SPVM_UTF8PROC_DECOMPOSE) or compose (@ref SPVM_UTF8PROC_COMPOSE) Unicode combining characters (http://en.wikipedia.org/wiki/Combining_character)
- *    - canonicalize Unicode compatibility characters (@ref SPVM_UTF8PROC_COMPAT)
+ *    - decompose (@ref SPVM_UTF8PROC_DECOMPOSE) or compose (@ref SPVM_UTF8PROC_COMPOSE) Encode combining characters (http://en.wikipedia.org/wiki/Combining_character)
+ *    - canonicalize Encode compatibility characters (@ref SPVM_UTF8PROC_COMPAT)
  *    - strip "ignorable" (@ref SPVM_UTF8PROC_IGNORE) characters, control characters (@ref SPVM_UTF8PROC_STRIPCC), or combining characters such as accents (@ref SPVM_UTF8PROC_STRIPMARK)
  *    - case-folding (@ref SPVM_UTF8PROC_CASEFOLD)
- * - Unicode normalization: @ref spvm_utf8proc_NFD, @ref spvm_utf8proc_NFC, @ref spvm_utf8proc_NFKD, @ref spvm_utf8proc_NFKC
+ * - Encode normalization: @ref spvm_utf8proc_NFD, @ref spvm_utf8proc_NFC, @ref spvm_utf8proc_NFKD, @ref spvm_utf8proc_NFKC
  * - Detecting grapheme boundaries (@ref spvm_utf8proc_grapheme_break and @ref SPVM_UTF8PROC_CHARBOUND)
  * - Character-width computation: @ref spvm_utf8proc_charwidth
- * - Classification of characters by Unicode category: @ref spvm_utf8proc_category and @ref spvm_utf8proc_category_string
- * - Encode (@ref spvm_utf8proc_encode_char) and decode (@ref spvm_utf8proc_iterate) Unicode codepoints to/from UTF-8.
+ * - Classification of characters by Encode category: @ref spvm_utf8proc_category and @ref spvm_utf8proc_category_string
+ * - Encode (@ref spvm_utf8proc_encode_char) and decode (@ref spvm_utf8proc_iterate) Encode codepoints to/from UTF-8.
  */
 
 /** @file */
@@ -134,7 +134,7 @@ extern "C" {
 typedef enum {
   /** The given UTF-8 input is NULL terminated. */
   SPVM_UTF8PROC_NULLTERM  = (1<<0),
-  /** Unicode Versioning Stability has to be respected. */
+  /** Encode Versioning Stability has to be respected. */
   SPVM_UTF8PROC_STABLE    = (1<<1),
   /** Compatibility decomposition (i.e. formatting information is lost). */
   SPVM_UTF8PROC_COMPAT    = (1<<2),
@@ -223,7 +223,7 @@ typedef spvm_utf8proc_int16_t spvm_utf8proc_propval_t;
 /** Struct containing information about a codepoint. */
 typedef struct spvm_utf8proc_property_struct {
   /**
-   * Unicode category.
+   * Encode category.
    * @see spvm_utf8proc_category_t.
    */
   spvm_utf8proc_propval_t category;
@@ -264,7 +264,7 @@ typedef struct spvm_utf8proc_property_struct {
   unsigned boundclass:8;
 } spvm_utf8proc_property_t;
 
-/** Unicode categories. */
+/** Encode categories. */
 typedef enum {
   SPVM_UTF8PROC_CATEGORY_CN  = 0, /**< Other, not assigned */
   SPVM_UTF8PROC_CATEGORY_LU  = 1, /**< Letter, uppercase */
@@ -363,14 +363,14 @@ typedef enum {
   SPVM_UTF8PROC_BOUNDCLASS_PREPEND            = 13, /**< Prepend */
   SPVM_UTF8PROC_BOUNDCLASS_ZWJ                = 14, /**< Zero Width Joiner */
 
-  /* the following are no longer used in Unicode 11, but we keep
+  /* the following are no longer used in Encode 11, but we keep
      the constants here for backward compatibility */
   SPVM_UTF8PROC_BOUNDCLASS_E_BASE             = 15, /**< Emoji Base */
   SPVM_UTF8PROC_BOUNDCLASS_E_MODIFIER         = 16, /**< Emoji Modifier */
   SPVM_UTF8PROC_BOUNDCLASS_GLUE_AFTER_ZWJ     = 17, /**< Glue_After_ZWJ */
   SPVM_UTF8PROC_BOUNDCLASS_E_BASE_GAZ         = 18, /**< E_BASE + GLUE_AFTER_ZJW */
 
-  /* the Extended_Pictographic property is used in the Unicode 11
+  /* the Extended_Pictographic property is used in the Encode 11
      grapheme-boundary rules, so we store it in the boundclass field */
   SPVM_UTF8PROC_BOUNDCLASS_EXTENDED_PICTOGRAPHIC = 19,
   SPVM_UTF8PROC_BOUNDCLASS_E_ZWG = 20, /* SPVM_UTF8PROC_BOUNDCLASS_EXTENDED_PICTOGRAPHIC + ZWJ */
@@ -416,7 +416,7 @@ spvm_utf8proc_ssize_t spvm_utf8proc_iterate(const spvm_utf8proc_uint8_t *str, sp
 
 /**
  * Check if a codepoint is valid (regardless of whether it has been
- * assigned a value by the current Unicode standard).
+ * assigned a value by the current Encode standard).
  *
  * @return 1 if the given `codepoint` is valid and otherwise return 0.
  */
@@ -429,14 +429,14 @@ spvm_utf8proc_bool spvm_utf8proc_codepoint_valid(spvm_utf8proc_int32_t codepoint
  * In case of success the number of bytes written is returned, and
  * otherwise 0 is returned.
  *
- * This function does not check whether `codepoint` is valid Unicode.
+ * This function does not check whether `codepoint` is valid Encode.
  */
 spvm_utf8proc_ssize_t spvm_utf8proc_encode_char(spvm_utf8proc_int32_t codepoint, spvm_utf8proc_uint8_t *dst);
 
 /**
  * Look up the properties for a given codepoint.
  *
- * @param codepoint The Unicode codepoint.
+ * @param codepoint The Encode codepoint.
  *
  * @returns
  * A pointer to a (constant) struct containing information about
@@ -455,7 +455,7 @@ const spvm_utf8proc_property_t *spvm_utf8proc_get_property(spvm_utf8proc_int32_t
  * @param options one or more of the following flags:
  * - @ref SPVM_UTF8PROC_REJECTNA  - return an error `codepoint` is unassigned
  * - @ref SPVM_UTF8PROC_IGNORE    - strip "default ignorable" codepoints
- * - @ref SPVM_UTF8PROC_CASEFOLD  - apply Unicode casefolding
+ * - @ref SPVM_UTF8PROC_CASEFOLD  - apply Encode casefolding
  * - @ref SPVM_UTF8PROC_COMPAT    - replace certain codepoints with their
  *                             compatibility decomposition
  * - @ref SPVM_UTF8PROC_CHARBOUND - insert 0xFF bytes before each grapheme cluster
@@ -575,12 +575,12 @@ spvm_utf8proc_ssize_t spvm_utf8proc_reencode(spvm_utf8proc_int32_t *buffer, spvm
  *
  * @param codepoint1 The first codepoint.
  * @param codepoint2 The second codepoint, occurring consecutively after `codepoint1`.
- * @param state Beginning with Version 29 (Unicode 9.0.0), this algorithm requires
+ * @param state Beginning with Version 29 (Encode 9.0.0), this algorithm requires
  *              state to break graphemes. This state can be passed in as a pointer
  *              in the `state` argument and should initially be set to 0. If the
  *              state is not passed in (i.e. a null pointer is passed), UAX#29 rules
  *              GB10/12/13 which require this state will not be applied, essentially
- *              matching the rules in Unicode 8.0.0.
+ *              matching the rules in Encode 8.0.0.
  *
  * @warning If the state parameter is used, `spvm_utf8proc_grapheme_break_stateful` must
  *          be called IN ORDER on ALL potential breaks in a string.
@@ -590,7 +590,7 @@ spvm_utf8proc_bool spvm_utf8proc_grapheme_break_stateful(
 
 /**
  * Same as @ref spvm_utf8proc_grapheme_break_stateful, except without support for the
- * Unicode 9 additions to the algorithm. Supported for legacy reasons.
+ * Encode 9 additions to the algorithm. Supported for legacy reasons.
  */
 spvm_utf8proc_bool spvm_utf8proc_grapheme_break(
     spvm_utf8proc_int32_t codepoint1, spvm_utf8proc_int32_t codepoint2);
@@ -628,13 +628,13 @@ spvm_utf8proc_int32_t spvm_utf8proc_totitle(spvm_utf8proc_int32_t c);
 int spvm_utf8proc_charwidth(spvm_utf8proc_int32_t codepoint);
 
 /**
- * Return the Unicode category for the codepoint (one of the
+ * Return the Encode category for the codepoint (one of the
  * @ref spvm_utf8proc_category_t constants.)
  */
 spvm_utf8proc_category_t spvm_utf8proc_category(spvm_utf8proc_int32_t codepoint);
 
 /**
- * Return the two-letter (nul-terminated) Unicode category string for
+ * Return the two-letter (nul-terminated) Encode category string for
  * the codepoint (e.g. `"Lu"` or `"Co"`).
  */
 const char *spvm_utf8proc_category_string(spvm_utf8proc_int32_t codepoint);
@@ -673,7 +673,7 @@ spvm_utf8proc_ssize_t spvm_utf8proc_map_custom(
   spvm_utf8proc_custom_func custom_func, void *custom_data
 );
 
-/** @name Unicode normalization
+/** @name Encode normalization
  *
  * Returns a pointer to newly allocated memory of a NFD, NFC, NFKD, NFKC or
  * NFKC_Casefold normalized version of the null-terminated string `str`.  These

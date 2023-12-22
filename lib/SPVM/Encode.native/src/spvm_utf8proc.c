@@ -30,7 +30,7 @@
 
 /*
  *  This library contains derived data from a modified version of the
- *  Unicode data files.
+ *  Encode data files.
  *
  *  The original data files are available at
  *  http://www.unicode.org/Public/UNIDATA/
@@ -110,7 +110,7 @@ const char *spvm_utf8proc_errmsg(spvm_utf8proc_ssize_t errcode) {
     case SPVM_UTF8PROC_ERROR_INVALIDUTF8:
     return "Invalid UTF-8 string";
     case SPVM_UTF8PROC_ERROR_NOTASSIGNED:
-    return "Unassigned Unicode code point found in UTF-8 string.";
+    return "Unassigned Encode code point found in UTF-8 string.";
     case SPVM_UTF8PROC_ERROR_INVALIDOPTS:
     return "Invalid options for UTF-8 processing chosen.";
     default:
@@ -245,7 +245,7 @@ const spvm_utf8proc_property_t *spvm_utf8proc_get_property(spvm_utf8proc_int32_t
 /* return whether there is a grapheme break between boundclasses lbc and tbc
    (according to the definition of extended grapheme clusters)
 
-  Rule numbering refers to TR29 Version 29 (Unicode 9.0.0):
+  Rule numbering refers to TR29 Version 29 (Encode 9.0.0):
   http://www.unicode.org/reports/tr29/tr29-29.html
 
   CAVEATS:
@@ -393,7 +393,7 @@ spvm_utf8proc_category_t spvm_utf8proc_category(spvm_utf8proc_int32_t c) {
   return spvm_utf8proc_get_property(c)->category;
 }
 
-/* Comment out to suppress warnings of SPVM Unicode module
+/* Comment out to suppress warnings of SPVM Encode module
 const char *spvm_utf8proc_category_string(spvm_utf8proc_int32_t c) {
   const char s[][3] = {"Cn","Lu","Ll","Lt","Lm","Lo","Mn","Mc","Me","Nd","Nl","No","Pc","Pd","Ps","Pe","Pi","Pf","Po","Sm","Sc","Sk","So","Zs","Zl","Zp","Cc","Cf","Cs","Co"};
   return s[spvm_utf8proc_category(c)];

@@ -5,7 +5,7 @@ use warnings;
 use FindBin;
 use lib "$FindBin::Bin/lib";
 
-use SPVM 'TestCase::Unicode';
+use SPVM 'TestCase::Encode';
 
 my $api = SPVM::api();
 
@@ -13,14 +13,14 @@ my $api = SPVM::api();
 my $start_memory_blocks_count = $api->get_memory_blocks_count();
 
 {
-  ok(SPVM::TestCase::Unicode->uchar);
-  ok(SPVM::TestCase::Unicode->uchar_to_utf8);
-  ok(SPVM::TestCase::Unicode->utf32_to_utf16);
-  ok(SPVM::TestCase::Unicode->utf16_to_utf32);
-  ok(SPVM::TestCase::Unicode->utf8_to_utf16);
-  ok(SPVM::TestCase::Unicode->utf16_to_utf8);
-  ok(SPVM::TestCase::Unicode->ERROR_INVALID_UTF8);
-  ok(SPVM::TestCase::Unicode->is_unicode_scalar_value);
+  ok(SPVM::TestCase::Encode->uchar);
+  ok(SPVM::TestCase::Encode->uchar_to_utf8);
+  ok(SPVM::TestCase::Encode->utf32_to_utf16);
+  ok(SPVM::TestCase::Encode->utf16_to_utf32);
+  ok(SPVM::TestCase::Encode->utf8_to_utf16);
+  ok(SPVM::TestCase::Encode->utf16_to_utf8);
+  ok(SPVM::TestCase::Encode->ERROR_INVALID_UTF8);
+  ok(SPVM::TestCase::Encode->is_unicode_scalar_value);
 }
 
 # All object is freed

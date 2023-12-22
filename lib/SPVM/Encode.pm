@@ -1,4 +1,4 @@
-package SPVM::Unicode;
+package SPVM::Encode;
 
 our $VERSION = '0.05';
 
@@ -8,19 +8,19 @@ our $VERSION = '0.05';
 
 =head1 Name
 
-SPVM::Unicode - Unicode Utilities.
+SPVM::Encode - Encode Utilities.
 
 =head1 Description
 
-The Unicode class of L<SPVM> has methods for Unicode utilities.
+The Encode class of L<SPVM> has methods for Encode utilities.
 
 =head1 Usage
 
-  use Unicode;
+  use Encode;
   
   my $string = "あいうえお";
   my $pos = 0;
-  while ((my $uchar = Unicode->uchar($string, \$pos)) >= 0);
+  while ((my $uchar = Encode->uchar($string, \$pos)) >= 0);
     # ...
   }
 
@@ -36,13 +36,13 @@ Returns -2.
 
   static method is_unicode_scalar_value : int ($code_point: int);
 
-If the code point $code_point is a Unicode scalar value, returns 1. Otherwise returns 0.
+If the code point $code_point is a Encode scalar value, returns 1. Otherwise returns 0.
 
 =head2 uchar
 
   static method uchar : int ($string : string, $offset_ref : int*);
 
-Gets a Unicode codepoint by parsing UTF-8 string $string with the offset $$offset_ref  and proceed the offset to the next parsing posision.
+Gets a Encode codepoint by parsing UTF-8 string $string with the offset $$offset_ref  and proceed the offset to the next parsing posision.
 
 If $$offset_ref is over the string length, returns -1.
 
@@ -52,9 +52,9 @@ If an invalid UTF-8 character is found, returns the value of L</"ERROR_INVALID_U
 
   static method uchar_to_utf8 : string ($unicode_code_point : int);
 
-Converts the Unicode codepoint $unicode_code_point to a UTF-8 character.
+Converts the Encode codepoint $unicode_code_point to a UTF-8 character.
 
-If the $unicode_code_point is invalid Unicode code point, returns undef.
+If the $unicode_code_point is invalid Encode code point, returns undef.
 
 =head2 utf8_to_utf16
 
