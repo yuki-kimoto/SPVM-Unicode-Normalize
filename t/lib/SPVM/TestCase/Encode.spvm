@@ -1,50 +1,16 @@
 class TestCase::Encode {
   use Encode;
 
-  static method code_point_to_utf8 : int () {
+  static method encode_utf8 : int () {
+    # サロゲートペア含む
+    my $str = "あ𠮷a";
     
-    {
-      my $pos = 0;
-      
-      # あ
-      {
-        my $code_point = 0x3042;
-        my $utf8_bytes = Encode->code_point_to_utf8($code_point);
-        my $len = length $utf8_bytes;
-        unless ($len == 3) {
-          return 0;
-        }
-        unless ($utf8_bytes eq "あ") {
-          return 0;
-        }
-      }
-
-      # a
-      {
-        my $code_point = 'a';
-        my $utf8_bytes = Encode->code_point_to_utf8($code_point);
-        my $len = length $utf8_bytes;
-        unless ($len == 1) {
-          return 0;
-        }
-        unless ($utf8_bytes eq "a") {
-          return 0;
-        }
-      }
-
-      # い
-      {
-        my $code_point = 0x3044;
-        my $utf8_bytes = Encode->code_point_to_utf8($code_point);
-        my $len = length $utf8_bytes;
-        unless ($len == 3) {
-          return 0;
-        }
-        unless ($utf8_bytes eq "い") {
-          return 0;
-        }
-      }
+    my $utf8_chars = Encode->encode_utf8($str);
+    
+    unless ($str eq $utf8_chars) {
+      return 0;
     }
+    
     return 1;
   }
 

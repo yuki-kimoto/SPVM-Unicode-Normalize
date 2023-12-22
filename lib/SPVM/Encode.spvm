@@ -5,7 +5,12 @@ class Encode : precompile {
   use IntList;
   use Fn;
   
-  native static method code_point_to_utf8 : string ($code_point : int);
+  static method encode_utf8 : string ($string : string) {
+    
+    my $utf8_bytes = copy $string;
+    
+    return $utf8_bytes;
+  }
   
   static method encode_utf16 : short[] ($string : string) {
     my $offset = 0;
@@ -49,6 +54,8 @@ class Encode : precompile {
     
     return $string_ret;
   }
+  
+  native private static method code_point_to_utf8 : string ($code_point : int);
   
   private static method utf32_to_utf16 : short[] ($string : int[]) {
     my $length = 0;
