@@ -5,6 +5,13 @@ class Encode : precompile {
   use IntList;
   use Fn;
   
+  static method decode_utf8 : string ($utf8_bytes : string) {
+    
+    my $string = &NFC($utf8_bytes);
+    
+    return $string;
+  }
+  
   static method encode_utf8 : string ($string : string) {
     
     my $utf8_bytes = copy $string;

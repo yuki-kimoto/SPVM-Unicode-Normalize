@@ -1,6 +1,19 @@
 class TestCase::Encode {
   use Encode;
 
+  static method decode_utf8 : int () {
+    # サロゲートペア含む
+    my $utf8_bytes = "あいう";
+    
+    my $string = Encode->decode_utf8($utf8_bytes);
+    
+    unless ($string eq "あいう") {
+      return 0;
+    }
+    
+    return 1;
+  }
+  
   static method encode_utf8 : int () {
     # サロゲートペア含む
     my $str = "あ𠮷a";
