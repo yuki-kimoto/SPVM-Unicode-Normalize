@@ -5,11 +5,11 @@ class Encode : precompile {
   use IntList;
   use Fn;
   
-  native static method uchar_to_utf8 : string ($uchar : int);
+  native static method code_point_to_utf8 : string ($code_point : int);
   
   static method encode_utf16 : short[] ($string : string) {
     my $offset = 0;
-    my $uchars_list = IntList->new_len(0);
+    my $code_points_list = IntList->new_len(0);
     
     my $string_length = length $string;
     
@@ -18,30 +18,30 @@ class Encode : precompile {
         last;
       }
       
-      my $uchar = Fn->get_code_point($string, \$offset);
+      my $code_point = Fn->get_code_point($string, \$offset);
       
-      $uchars_list->push($uchar);
+      $code_points_list->push($code_point);
     }
     
     unless ($offset >= length $string) {
       die "Can't convert part of string to utf16";
     }
     
-    my $uchars = $uchars_list->to_array;
+    my $code_points = $code_points_list->to_array;
     
-    my $string_ret = &utf32_to_utf16($uchars);
+    my $string_ret = &utf32_to_utf16($code_points);
     
     return $string_ret;
   }
   
   static method decode_utf16 : string ($string : short[]) {
-    my $uchars = &utf16_to_utf32($string);
+    my $code_points = &utf16_to_utf32($string);
     
     my $buffer = StringBuffer->new;
     
-    for (my $i = 0; $i < @$uchars; $i++) {
-      my $uchar = $uchars->[$i];
-      my $utf8_str = &uchar_to_utf8($uchar);
+    for (my $i = 0; $i < @$code_points; $i++) {
+      my $code_point = $code_points->[$i];
+      my $utf8_str = &code_point_to_utf8($code_point);
       $buffer->push($utf8_str);
     }
     

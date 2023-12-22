@@ -1,15 +1,15 @@
 class TestCase::Encode {
   use Encode;
 
-  static method uchar_to_utf8 : int () {
+  static method code_point_to_utf8 : int () {
     
     {
       my $pos = 0;
       
       # あ
       {
-        my $uchar = 0x3042;
-        my $utf8_bytes = Encode->uchar_to_utf8($uchar);
+        my $code_point = 0x3042;
+        my $utf8_bytes = Encode->code_point_to_utf8($code_point);
         my $len = length $utf8_bytes;
         unless ($len == 3) {
           return 0;
@@ -21,8 +21,8 @@ class TestCase::Encode {
 
       # a
       {
-        my $uchar = 'a';
-        my $utf8_bytes = Encode->uchar_to_utf8($uchar);
+        my $code_point = 'a';
+        my $utf8_bytes = Encode->code_point_to_utf8($code_point);
         my $len = length $utf8_bytes;
         unless ($len == 1) {
           return 0;
@@ -34,8 +34,8 @@ class TestCase::Encode {
 
       # い
       {
-        my $uchar = 0x3044;
-        my $utf8_bytes = Encode->uchar_to_utf8($uchar);
+        my $code_point = 0x3044;
+        my $utf8_bytes = Encode->code_point_to_utf8($code_point);
         my $len = length $utf8_bytes;
         unless ($len == 3) {
           return 0;

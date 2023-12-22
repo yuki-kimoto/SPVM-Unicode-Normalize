@@ -22,9 +22,9 @@ The Encode class in L<SPVM> has methods to encode/docode strings.
 
 =head1 Class Methods
 
-=head2 uchar_to_utf8
+=head2 code_point_to_utf8
 
-  static method uchar_to_utf8 : string ($unicode_code_point : int);
+  static method code_point_to_utf8 : string ($unicode_code_point : int);
 
 Converts the Encode codepoint $unicode_code_point to a UTF-8 character.
 

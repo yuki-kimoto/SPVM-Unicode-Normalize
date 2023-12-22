@@ -7,7 +7,7 @@
 
 const char* MFILE = "SPVM/Encode.c";
 
-int32_t SPVM__Encode__uchar(SPVM_ENV* env, SPVM_VALUE* stack) {
+int32_t SPVM__Encode__code_point(SPVM_ENV* env, SPVM_VALUE* stack) {
   (void)env;
   
   void* obj_str = stack[0].oval;
@@ -23,32 +23,32 @@ int32_t SPVM__Encode__uchar(SPVM_ENV* env, SPVM_VALUE* stack) {
   }
   
   spvm_utf8proc_int32_t dst;
-  int32_t uchar_len = (int32_t)spvm_utf8proc_iterate((const spvm_utf8proc_uint8_t*)(str + *offset_ref), str_len, &dst);
+  int32_t code_point_len = (int32_t)spvm_utf8proc_iterate((const spvm_utf8proc_uint8_t*)(str + *offset_ref), str_len, &dst);
 
-  int32_t uchar;
-  if (uchar_len > 0) {
-    uchar = dst;
-    *offset_ref += uchar_len;
+  int32_t code_point;
+  if (code_point_len > 0) {
+    code_point = dst;
+    *offset_ref += code_point_len;
   }
-  else if (uchar_len == 0) {
-    uchar = -1;
+  else if (code_point_len == 0) {
+    code_point = -1;
   }
-  else if (uchar_len == SPVM_UTF8PROC_ERROR_INVALIDUTF8) {
-    uchar = -2;
+  else if (code_point_len == SPVM_UTF8PROC_ERROR_INVALIDUTF8) {
+    code_point = -2;
   }
   
-  stack[0].ival = uchar;
+  stack[0].ival = code_point;
   
   return 0;
 }
 
-int32_t SPVM__Encode__uchar_to_utf8(SPVM_ENV* env, SPVM_VALUE* stack) {
+int32_t SPVM__Encode__code_point_to_utf8(SPVM_ENV* env, SPVM_VALUE* stack) {
   (void)env;
   
-  int32_t uchar = stack[0].ival;
+  int32_t code_point = stack[0].ival;
   
   char tmp_utf8_bytes[4];
-  int32_t utf8_len = (int32_t)spvm_utf8proc_encode_char((spvm_utf8proc_int32_t)uchar, (spvm_utf8proc_uint8_t*)tmp_utf8_bytes);
+  int32_t utf8_len = (int32_t)spvm_utf8proc_encode_char((spvm_utf8proc_int32_t)code_point, (spvm_utf8proc_uint8_t*)tmp_utf8_bytes);
   
   if (utf8_len == 0) {
     stack[0].oval = NULL;
