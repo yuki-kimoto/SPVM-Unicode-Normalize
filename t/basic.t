@@ -13,18 +13,13 @@ my $api = SPVM::api();
 my $start_memory_blocks_count = $api->get_memory_blocks_count();
 
 {
-  ok(SPVM::TestCase::Unicode::Normalize->decode_utf8);
+  ok(SPVM::TestCase::Unicode::Normalize->NFC);
   
-  ok(SPVM::TestCase::Unicode::Normalize->encode_utf8);
+  ok(SPVM::TestCase::Unicode::Normalize->NFD);
   
-  ok(SPVM::TestCase::Unicode::Normalize->decode_utf16);
+  ok(SPVM::TestCase::Unicode::Normalize->NFKC);
   
-  ok(SPVM::TestCase::Unicode::Normalize->encode_utf16);
-  
-  ok(SPVM::TestCase::Unicode::Normalize->decode_utf32);
-  
-  ok(SPVM::TestCase::Unicode::Normalize->encode_utf32);
-  
+  ok(SPVM::TestCase::Unicode::Normalize->NFKD);
 }
 
 # All object is freed

@@ -8,59 +8,49 @@ our $VERSION = '0.001';
 
 =head1 Name
 
-SPVM::Unicode::Normalize - Unicode::Normalize/Decode Strings
+SPVM::Unicode::Normalize - Normalizing UTF-8
 
 =head1 Description
 
-The Unicode::Normalize class in L<SPVM> has methods to encode/docode strings.
+The Unicode::Normalize class in L<SPVM> has methods to normalize UTF-8.
 
 =head1 Usage
 
   use Unicode::Normalize;
+   
+  my $NFD_string  = Unicode::Normalize->NFD($string);
   
-  my $string = "あいうえお";
+  my $NFC_string  = Unicode::Normalize->NFC($string);
   
-  my $utf16_string = Unicode::Normalize->encode_utf16($string);
+  my $NFKD_string = Unicode::Normalize->NFKD($string);
   
-  my $string_again = Unicode::Normalize->decode_utf16($utf16_string);
+  my $NFKC_string = Unicode::Normalize->NFKC($string);
 
 =head1 Class Methods
 
-=head2 decode_utf8
+=head2 NFC
 
-  static method decode_utf8 : string ($utf8_string : short[]);
+C<static method NFC : string ($string : string);>
 
-Normalizes the UTF-8 string $utf8_string to NFC, and returns it.
+Returns the Normalization Form C (formed by canonical decomposition followed by canonical composition).
 
-=head2 encode_utf8
+=head2 NFD
 
-  static method encode_utf8 : short[] ($string : string);
+C<static method NFD : string ($string : string);>
 
-Copies the UTF-8 string $string and returns it.
+Returns the Normalization Form D (formed by canonical decomposition).
 
-=head2 decode_utf16
+=head2 NFKC
 
-  static method decode_utf16 : string ($utf16_string : short[]);
+C<static method NFKC : string ($string : string);>
 
-Converts the UTF-16 string $utf16_string to a UTF-8 string, and returns it.
+Returns the Normalization Form KC (formed by compatibility decomposition followed by canonical composition).
 
-=head2 encode_utf16
+=head2 NFKD
 
-  static method encode_utf16 : short[] ($string : string);
+C<static method NFKD : string ($string : string);>
 
-Converts the UTF-8 string $string to a UTF-16 string, and returns it.
-
-=head2 decode_utf32
-
-  static method decode_utf32 : string ($utf32_string : int[]);
-
-Converts the UTF-32 string(Unicode code points) $utf32_string to a UTF-8 string, and returns it.
-
-=head2 encode_utf32
-
-  static method encode_utf32 : int[] ($string : string);
-
-Converts the UTF-8 string $string to a UTF-32 string(Unicode code points), and returns it.
+Returns the Normalization Form KD (formed by compatibility decomposition).
 
 =head1 Copyright & License
 
