@@ -14,8 +14,6 @@ my $start_memory_blocks_count = $api->get_memory_blocks_count();
 
 {
   ok(SPVM::TestCase::Encode->uchar_to_utf8);
-  ok(SPVM::TestCase::Encode->utf32_to_utf16);
-  ok(SPVM::TestCase::Encode->utf16_to_utf32);
   ok(SPVM::TestCase::Encode->utf8_to_utf16);
   ok(SPVM::TestCase::Encode->utf16_to_utf8);
   ok(SPVM::TestCase::Encode->ERROR_INVALID_UTF8);

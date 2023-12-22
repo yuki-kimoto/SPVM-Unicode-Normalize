@@ -67,17 +67,17 @@ class Encode : precompile {
     return $string_ret;
   }
   
-  static method utf32_to_utf16 : short[] ($string : int[]) {
+  private static method utf32_to_utf16 : short[] ($string : int[]) {
     my $length = 0;
     
     # Culcurate length
     for (my $i = 0; $i < @$string; $i++) {
       my $code_point = $string->[$i];
-
+      
       if ($code_point < 0 || $code_point > 0x10FFFF) {
         die "Invalid code point in code point string";
       }
-
+      
       if ($code_point < 0x10000) {
         $length++;
       }
@@ -92,7 +92,7 @@ class Encode : precompile {
     
     for (my $i = 0; $i < @$string; $i++) {
       my $code_point = $string->[$i];
-
+      
       if ($code_point < 0x10000) {
         $string_ret->[$offset] = (short)$code_point;
         $offset++;
@@ -106,9 +106,9 @@ class Encode : precompile {
     
     return $string_ret;
   }
-
-  static method utf16_to_utf32 : int[] ($string : short[]) {
-
+  
+  private static method utf16_to_utf32 : int[] ($string : short[]) {
+    
     my $length = 0;
     
     # Culcurate length
@@ -146,7 +146,7 @@ class Encode : precompile {
     
     return $string_ret;
   }
-
+ 
   private static method _is_utf16_high_surrogate : int ($char : int) {
     if ($char >= 0xD800 && $char < 0xDC00) {
       return 1;
@@ -155,7 +155,7 @@ class Encode : precompile {
       return 0;
     }
   }
-
+  
   private static method _is_utf16_low_surrogate : int ($char : int) {
     if ($char >= 0xDC00 && $char < 0xE000) {
       return 1;
