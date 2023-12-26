@@ -5,7 +5,7 @@
 
 #include "utf8proc.h"
 
-const char* FILE_NAME = "SPVM/Unicode/Normalize.c";
+static const char* FILE_NAME = "Unicode/Normalize.c";
 
 int32_t SPVM__Unicode__Normalize__NFC(SPVM_ENV* env, SPVM_VALUE* stack) {
   
