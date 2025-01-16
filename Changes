@@ -3,6 +3,8 @@
     * Load Resource::Utf8proc class.
   [Document Improvement]
     * Improve the document.
+  [Exception Message Changes]
+    * Improve exception messages.
 0.003  2023-12-26
   [Bug Fix]
     * Fix the bug that FILE_NAME in native source file does not have the file scope.
