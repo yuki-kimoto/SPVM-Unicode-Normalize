@@ -34,7 +34,7 @@ C<static method NFC : string ($string : string);>
 
 Returns the Normalization Form C (formed by canonical decomposition followed by canonical composition).
 
-This method calls native utf8proc_map function defined in L<ut8proc.h|SPVM::Resource::Utf8proc> library.
+This method calls native C<utf8proc_map> function defined in L<ut8proc.h|SPVM::Resource::Utf8proc>.
 
 Exceptions:
 
@@ -48,7 +48,7 @@ C<static method NFD : string ($string : string);>
 
 Returns the Normalization Form D (formed by canonical decomposition).
 
-This method calls native utf8proc_map function defined in L<ut8proc.h|SPVM::Resource::Utf8proc> library.
+This method calls native C<utf8proc_map> function defined in L<ut8proc.h|SPVM::Resource::Utf8proc>.
 
 Exceptions:
 
@@ -62,7 +62,7 @@ C<static method NFKC : string ($string : string);>
 
 Returns the Normalization Form KC (formed by compatibility decomposition followed by canonical composition).
 
-This method calls native utf8proc_map function defined in L<ut8proc.h|SPVM::Resource::Utf8proc> library.
+This method calls native C<utf8proc_map> function defined in L<ut8proc.h|SPVM::Resource::Utf8proc>.
 
 Exceptions:
 
@@ -76,7 +76,7 @@ C<static method NFKD : string ($string : string);>
 
 Returns the Normalization Form KD (formed by compatibility decomposition).
 
-This method calls native utf8proc_map function defined in L<ut8proc.h|SPVM::Resource::Utf8proc> library.
+This method calls native C<utf8proc_map> function defined in L<ut8proc.h|SPVM::Resource::Utf8proc>.
 
 Exceptions:
 
@@ -92,9 +92,17 @@ If utf8proc_map failed, an exception is thrown.
 
 =back
 
+=head1 Porting
+
+L<SPVM::Unicode::Normalize> is a Perl's L<Unicode::Normalize> porting to L<SPVM>.
+
 =head1 Repository
 
 L<SPVM::Unicode::Normalize - Github|https://github.com/yuki-kimoto/SPVM-Unicode-Normalize>
+
+=head1 Author
+
+Yuki Kimoto C<kimoto.yuki@gmail.com>
 
 =head1 Copyright & License
 
