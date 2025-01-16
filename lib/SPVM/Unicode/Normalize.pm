@@ -34,11 +34,27 @@ C<static method NFC : string ($string : string);>
 
 Returns the Normalization Form C (formed by canonical decomposition followed by canonical composition).
 
+This method calls native utf8proc_map function defined in L<ut8proc.h|SPVM::Resource::Utf8proc> library.
+
+Exceptions:
+
+The string $string must be defined. Otherwise an exception is thrown.
+
+If utf8proc_map failed, an exception is thrown.
+
 =head2 NFD
 
 C<static method NFD : string ($string : string);>
 
 Returns the Normalization Form D (formed by canonical decomposition).
+
+This method calls native utf8proc_map function defined in L<ut8proc.h|SPVM::Resource::Utf8proc> library.
+
+Exceptions:
+
+The string $string must be defined. Otherwise an exception is thrown.
+
+If utf8proc_map failed, an exception is thrown.
 
 =head2 NFKC
 
@@ -46,11 +62,35 @@ C<static method NFKC : string ($string : string);>
 
 Returns the Normalization Form KC (formed by compatibility decomposition followed by canonical composition).
 
+This method calls native utf8proc_map function defined in L<ut8proc.h|SPVM::Resource::Utf8proc> library.
+
+Exceptions:
+
+The string $string must be defined. Otherwise an exception is thrown.
+
+If utf8proc_map failed, an exception is thrown.
+
 =head2 NFKD
 
 C<static method NFKD : string ($string : string);>
 
 Returns the Normalization Form KD (formed by compatibility decomposition).
+
+This method calls native utf8proc_map function defined in L<ut8proc.h|SPVM::Resource::Utf8proc> library.
+
+Exceptions:
+
+The string $string must be defined. Otherwise an exception is thrown.
+
+If utf8proc_map failed, an exception is thrown.
+
+=head1 See Also
+
+=over 2
+
+=item * L<Resource::Utf8proc|SPVM::Resource::Utf8proc>
+
+=back
 
 =head1 Repository
 
