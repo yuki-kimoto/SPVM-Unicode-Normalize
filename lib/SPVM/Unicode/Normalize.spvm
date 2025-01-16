@@ -4,6 +4,8 @@
 class Unicode::Normalize : precompile {
   version "0.003";
   
+  use Resource::Utf8proc;
+  
   native static method NFC : string ($string : string);
   
   native static method NFD : string ($string : string);
