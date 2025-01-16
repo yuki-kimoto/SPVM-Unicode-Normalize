@@ -1,7 +1,7 @@
 # Copyright (c) 2023 Yuki Kimoto
 # MIT License
 
-class Unicode::Normalize : precompile {
+class Unicode::Normalize {
   version "0.003";
   
   use Resource::Utf8proc;
