@@ -34,7 +34,7 @@ C<static method NFC : string ($string : string);>
 
 Returns the Normalization Form C (formed by canonical decomposition followed by canonical composition).
 
-This method calls native C<utf8proc_map> function defined in L<ut8proc.h|SPVM::Resource::Utf8proc>.
+This method calls native C<utf8proc_map> function defined in C<ut8proc.h> of L<utf8proc|SPVM::Resource::Utf8proc> library.
 
 Exceptions:
 
@@ -48,7 +48,7 @@ C<static method NFD : string ($string : string);>
 
 Returns the Normalization Form D (formed by canonical decomposition).
 
-This method calls native C<utf8proc_map> function defined in L<ut8proc.h|SPVM::Resource::Utf8proc>.
+This method calls native C<utf8proc_map> function defined in C<ut8proc.h> of L<utf8proc|SPVM::Resource::Utf8proc> library.
 
 Exceptions:
 
@@ -62,7 +62,7 @@ C<static method NFKC : string ($string : string);>
 
 Returns the Normalization Form KC (formed by compatibility decomposition followed by canonical composition).
 
-This method calls native C<utf8proc_map> function defined in L<ut8proc.h|SPVM::Resource::Utf8proc>.
+This method calls native C<utf8proc_map> function defined in C<ut8proc.h> of L<utf8proc|SPVM::Resource::Utf8proc> library.
 
 Exceptions:
 
@@ -76,7 +76,7 @@ C<static method NFKD : string ($string : string);>
 
 Returns the Normalization Form KD (formed by compatibility decomposition).
 
-This method calls native C<utf8proc_map> function defined in L<ut8proc.h|SPVM::Resource::Utf8proc>.
+This method calls native C<utf8proc_map> function defined in C<ut8proc.h> of L<utf8proc|SPVM::Resource::Utf8proc> library.
 
 Exceptions:
 
