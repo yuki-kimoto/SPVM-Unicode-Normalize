@@ -52,6 +52,10 @@ C<static method NFKD : string ($string : string);>
 
 Returns the Normalization Form KD (formed by compatibility decomposition).
 
+=head1 Repository
+
+L<SPVM::Unicode::Normalize - Github|https://github.com/yuki-kimoto/SPVM-Unicode-Normalize>
+
 =head1 Copyright & License
 
 Copyright (c) 2023 Yuki Kimoto
